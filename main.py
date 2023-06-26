@@ -33,6 +33,21 @@ if __name__ == '__main__':
     # background
     img = np.zeros((height, width, 3), dtype=np.uint8)
 
+    # sky
+    x1, y1 = 0, 0
+    groundHeight: int = int(height * 0.10 * 10 / 10)
+    x2, y2 = width, height - groundHeight
+    print(f'ground height={groundHeight}, y2={y2}')
+    skyColor = (255, 255, 85) # BGR, not RGB
+    skyLineThickness = -1 # fill without a border
+    cv.rectangle(img, (x1, y1), (x2, y2), skyColor, skyLineThickness)
+
+    # ground
+    x1, y1 = 0, height - groundHeight
+    x2, y2 = width, height
+    groundColor = (75, 180, 70)
+    groundThickness = -1
+    cv.rectangle(img, (x1, y1), (x2, y2), groundColor, groundThickness)
 
     cv.imshow("tree", img)
 
