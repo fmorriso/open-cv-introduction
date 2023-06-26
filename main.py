@@ -59,6 +59,15 @@ if __name__ == '__main__':
     sunThickness = -1
     cv.circle(img, (xCenter, yCenter), sunRadius, sunColor, sunThickness)
 
+    # tree trunk
+    trunkX1, y1 = int(width / 2), height - groundHeight # (600, 500) in video
+    x2 = trunkX1
+    trunkHeight = int(height * 0.35)
+    y2 = y1 - trunkHeight
+    trunkColor = (30, 65, 155) # BGR not RGB
+    trunkLineThickness = int(width * 0.05 * 10 / 10)
+    cv.line(img, (trunkX1, y1), (x2, y2), trunkColor, trunkLineThickness)
+
     cv.imshow("tree", img)
 
     cv.waitKey(0)
