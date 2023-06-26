@@ -35,7 +35,8 @@ if __name__ == '__main__':
 
     # sky
     x1, y1 = 0, 0
-    groundHeight: int = int(height * 0.10 * 10 / 10)
+    # allow for future ground by reserving a percentage of the total height
+    groundHeight: int = int(height * 0.15 * 10 / 10)
     x2, y2 = width, height - groundHeight
     print(f'ground height={groundHeight}, y2={y2}')
     skyColor = (255, 255, 85) # BGR, not RGB
@@ -48,6 +49,15 @@ if __name__ == '__main__':
     groundColor = (75, 180, 70)
     groundThickness = -1
     cv.rectangle(img, (x1, y1), (x2, y2), groundColor, groundThickness)
+
+    # sun
+    xCenter = int(width / 5) # indent from left side via a proportion instead of a fixed amount
+    yCenter = int((height - groundHeight) / 3) # indent from the top by a proportion instead of a fixed amount
+    # radius of sun is a percentage of the height (because height is usually smaller than width on my laptop computer
+    sunRadius = int(height * 0.12 * 10 / 10)
+    sunColor  = (0, 255, 255) # BGR not RGB
+    sunThickness = -1
+    cv.circle(img, (xCenter, yCenter), sunRadius, sunColor, sunThickness)
 
     cv.imshow("tree", img)
 
