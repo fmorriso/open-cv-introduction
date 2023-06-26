@@ -1,6 +1,8 @@
 import sys
-
 import pyautogui
+#
+import cv2 as cv
+import numpy as np
 
 
 @staticmethod
@@ -25,6 +27,14 @@ if __name__ == '__main__':
     print(f'Python version {get_python_version()}')
 
     # scale the size of the background based on device size
-    width, height = scaleBackground(0.75)
+    width, height = scaleBackground(0.80)
     print(f'scaled: width={width}, height={height}')
 
+    # background
+    img = np.zeros((height, width, 3), dtype=np.uint8)
+
+
+    cv.imshow("tree", img)
+
+    cv.waitKey(0)
+    cv.destroyAllWindows()
