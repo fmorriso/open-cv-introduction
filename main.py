@@ -73,10 +73,23 @@ if __name__ == '__main__':
     # trunk line thickness is proportional to screen width
     trunkLineThickness = int(width * 0.03)
     cv.line(img, (trunkX1, trunkY1), (trunkX2, trunkY2), trunkColor, trunkLineThickness)
+    # cv.line(img, (600, 500), (600, 420), (30,65,155), 25) # from video
 
     # leafs
-    # triangle = np.array([ [500,440], [700,440], [600,75]  ]) # left base, right-base, top
-    baseLeft = []
+    # triangle = np.array([ [500,440], [700,440], [600,75]  ]) # left base, right-base, top from video
+    leafXleft = int(trunkX1 * 0.80)
+    leafYbase = int(trunkY1 - (height * 0.10))
+    baseLeft = [leafXleft, leafYbase] # left base
+
+    leafXright = int(trunkX1 * 1.20)
+    baseRight = [leafXright, leafYbase]
+
+    leafTopX = trunkX1
+    leafTopY = int(trunkY2 * 0.30)
+    leafTop = [leafTopX, leafTopY]
+    
+    triangle = np.array([ [leafXleft, leafYbase], [leafXright, leafYbase], [leafTopX, leafTopY] ], dtype=np.int32 )
+    cv.fillPoly(img, [triangle], groundColor)
 
 
     cv.imshow("tree", img)
