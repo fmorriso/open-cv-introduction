@@ -103,8 +103,9 @@ if __name__ == '__main__':
     print(f'trunk1(x2, y2) = ({trunk1_X2},{trunk1_Y2}), trunk2(x2,y2) = ({trunk2_X2},{trunk2_Y2})')
     trunk2_color = (30, 65, 155)  # BGR not RGB
     # trunk line thickness is proportional to screen width
-    trunk2_lineThickness = int(width * 0.03)
+    trunk2_lineThickness = int(width * 0.015)
     cv.line(img, (trunk2_X1, trunk2_Y1), (trunk2_X2, trunk2_Y2), trunk2_color, trunk2_lineThickness)
+    print(f'trunk1 thickness = {trunk1_lineThickness}, trunk2 thickness = {trunk2_lineThickness}')
 
     # tree #2 leaves
 
@@ -137,6 +138,7 @@ if __name__ == '__main__':
     textThickness = int(height * 0.0025)
     cv.putText(img, captionText, (captionX, captionY), captionFont, fontScale, textColor, textThickness)
 
+    cv.imwrite("tree.jpg", img)
     cv.imshow("tree", img)
 
     cv.waitKey(0)
