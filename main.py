@@ -66,31 +66,33 @@ if __name__ == '__main__':
     cv.circle(img, (xCenter, yCenter), sunHaloRadius, sunHaloColor, sunHaloThickness)
 
     # tree trunk
-    trunkX1, trunkY1 = int(width * 2 / 3), height - groundHeight  # (600, 500) in video
-    trunkX2 = trunkX1
-    trunkHeight = int(height * 0.30)
-    trunkY2 = trunkY1 - trunkHeight
-    trunkColor = (30, 65, 155)  # BGR not RGB
+    trunk1_X1, trunk1_Y1 = int(width * 2 / 3), height - groundHeight  # (600, 500) in video
+    trunk1_X2 = trunk1_X1
+    trunk1_height = int(height * 0.30)
+    trunk1_Y2 = trunk1_Y1 - trunk1_height
+    trunk1_color = (30, 65, 155)  # BGR not RGB
     # trunk line thickness is proportional to screen width
-    trunkLineThickness = int(width * 0.03)
-    cv.line(img, (trunkX1, trunkY1), (trunkX2, trunkY2), trunkColor, trunkLineThickness)
+    trunk1_lineThickness = int(width * 0.03)
+    cv.line(img, (trunk1_X1, trunk1_Y1), (trunk1_X2, trunk1_Y2), trunk1_color, trunk1_lineThickness)
     # cv.line(img, (600, 500), (600, 420), (30,65,155), 25) # from video
 
     # leaves on the tree as a simple triangle
     # triangle = np.array([ [500,440], [700,440], [600,75]  ]) # left base, right-base, top from video
-    leafXleft = int(trunkX1 * 0.85)
-    leafYbase = int(trunkY1 - (height * 0.10))
+    leafXleft = int(trunk1_X1 * 0.85)
+    leafYbase = int(trunk1_Y1 - (height * 0.10))
     baseLeft = [leafXleft, leafYbase]  # left base
 
-    leafXright = int(trunkX1 * 1.15)
+    leafXright = int(trunk1_X1 * 1.15)
     baseRight = [leafXright, leafYbase]
 
-    leafTopX = trunkX1
-    leafTopY = int(trunkY2 * 0.30)
+    leafTopX = trunk1_X1
+    leafTopY = int(trunk1_Y2 * 0.30)
     leafTop = [leafTopX, leafTopY]
 
     triangle = np.array([[leafXleft, leafYbase], [leafXright, leafYbase], [leafTopX, leafTopY]], dtype=np.int32)
     cv.fillPoly(img, [triangle], groundColor)
+
+    # tree #2
 
     # add caption text
     captionText = "I love Python"
