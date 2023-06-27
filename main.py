@@ -78,21 +78,21 @@ if __name__ == '__main__':
 
     # leaves on the tree as a simple triangle
     # triangle = np.array([ [500,440], [700,440], [600,75]  ]) # left base, right-base, top from video
-    leafXleft = int(trunk1_X1 * 0.85)
-    leafYbase = int(trunk1_Y1 - (height * 0.10))
-    baseLeft = [leafXleft, leafYbase]  # left base
+    leaves1_Xleft = int(trunk1_X1 * 0.85)
+    leaves1_Ybase = int(trunk1_Y1 - (height * 0.10))
+    leaves1_baseLeft = [leaves1_Xleft, leaves1_Ybase]  # left base
 
-    leafXright = int(trunk1_X1 * 1.15)
-    baseRight = [leafXright, leafYbase]
+    leaves1_Xright = int(trunk1_X1 * 1.15)
+    leaves1_baseRight = [leaves1_Xright, leaves1_Ybase]
 
-    leafTopX = trunk1_X1
-    leafTopY = int(trunk1_Y2 * 0.30)
-    leafTop = [leafTopX, leafTopY]
+    leaves1_TopX = trunk1_X1
+    leaves1_TopY = int(trunk1_Y2 * 0.30)
+    leaves1_Top = [leaves1_TopX, leaves1_TopY]
 
-    triangle = np.array([[leafXleft, leafYbase], [leafXright, leafYbase], [leafTopX, leafTopY]], dtype=np.int32)
+    triangle = np.array([[leaves1_Xleft, leaves1_Ybase], [leaves1_Xright, leaves1_Ybase], [leaves1_TopX, leaves1_TopY]], dtype=np.int32)
     cv.fillPoly(img, [triangle], groundColor)
 
-    # tree #2
+    # tree #2 over to the right, shorter and thinner than tree #1
 
     # add caption text
     captionText = "I love Python"
