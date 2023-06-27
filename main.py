@@ -9,6 +9,7 @@ import numpy as np
 def get_python_version() -> str:
     return f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}'
 
+
 @staticmethod
 def scaleBackground(screenPct: float) -> tuple[int, int]:
     # find out the width and height of the device we are running on
@@ -39,8 +40,8 @@ if __name__ == '__main__':
     groundHeight: int = int(height * 0.15 * 10 / 10)
     x2, y2 = width, height - groundHeight
     print(f'ground height={groundHeight}, y2={y2}')
-    skyColor = (255, 255, 85) # BGR, not RGB
-    skyLineThickness = -1 # fill without a border
+    skyColor = (255, 255, 85)  # BGR, not RGB
+    skyLineThickness = -1  # fill without a border
     cv.rectangle(img, (x1, y1), (x2, y2), skyColor, skyLineThickness)
 
     # ground
@@ -51,25 +52,25 @@ if __name__ == '__main__':
     cv.rectangle(img, (x1, y1), (x2, y2), groundColor, groundThickness)
 
     # sun
-    xCenter = int(width / 8) # indent from left side via a proportion instead of a fixed amount
-    yCenter = int((height - groundHeight) / 4) # indent from the top by a proportion instead of a fixed amount
+    xCenter = int(width / 8)  # indent from left side via a proportion instead of a fixed amount
+    yCenter = int((height - groundHeight) / 4)  # indent from the top by a proportion instead of a fixed amount
     # radius of sun is a percentage of the height (because height is usually smaller than width on my laptop computer
     sunRadius = int(height * 0.08 * 10 / 10)
-    sunColor  = (0, 255, 255) # BGR not RGB
+    sunColor = (0, 255, 255)  # BGR not RGB
     sunThickness = -1
     cv.circle(img, (xCenter, yCenter), sunRadius, sunColor, sunThickness)
     # sun halo
-    sunHaloRadius = int(sunRadius * 1.10) # increase radius by 10 percent
+    sunHaloRadius = int(sunRadius * 1.10)  # increase radius by 10 percent
     sunHaloColor = (220, 255, 255)
     sunHaloThickness = 10
     cv.circle(img, (xCenter, yCenter), sunHaloRadius, sunHaloColor, sunHaloThickness)
 
     # tree trunk
-    trunkX1, trunkY1 = int(width / 2), height - groundHeight # (600, 500) in video
+    trunkX1, trunkY1 = int(width * 2 / 3), height - groundHeight  # (600, 500) in video
     trunkX2 = trunkX1
     trunkHeight = int(height * 0.30)
     trunkY2 = trunkY1 - trunkHeight
-    trunkColor = (30, 65, 155) # BGR not RGB
+    trunkColor = (30, 65, 155)  # BGR not RGB
     # trunk line thickness is proportional to screen width
     trunkLineThickness = int(width * 0.03)
     cv.line(img, (trunkX1, trunkY1), (trunkX2, trunkY2), trunkColor, trunkLineThickness)
@@ -77,20 +78,19 @@ if __name__ == '__main__':
 
     # leafs
     # triangle = np.array([ [500,440], [700,440], [600,75]  ]) # left base, right-base, top from video
-    leafXleft = int(trunkX1 * 0.80)
+    leafXleft = int(trunkX1 * 0.85)
     leafYbase = int(trunkY1 - (height * 0.10))
-    baseLeft = [leafXleft, leafYbase] # left base
+    baseLeft = [leafXleft, leafYbase]  # left base
 
-    leafXright = int(trunkX1 * 1.20)
+    leafXright = int(trunkX1 * 1.15)
     baseRight = [leafXright, leafYbase]
 
     leafTopX = trunkX1
     leafTopY = int(trunkY2 * 0.30)
     leafTop = [leafTopX, leafTopY]
-    
-    triangle = np.array([ [leafXleft, leafYbase], [leafXright, leafYbase], [leafTopX, leafTopY] ], dtype=np.int32 )
-    cv.fillPoly(img, [triangle], groundColor)
 
+    triangle = np.array([[leafXleft, leafYbase], [leafXright, leafYbase], [leafTopX, leafTopY]], dtype=np.int32)
+    cv.fillPoly(img, [triangle], groundColor)
 
     cv.imshow("tree", img)
 
