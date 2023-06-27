@@ -51,13 +51,18 @@ if __name__ == '__main__':
     cv.rectangle(img, (x1, y1), (x2, y2), groundColor, groundThickness)
 
     # sun
-    xCenter = int(width / 5) # indent from left side via a proportion instead of a fixed amount
-    yCenter = int((height - groundHeight) / 3) # indent from the top by a proportion instead of a fixed amount
+    xCenter = int(width / 8) # indent from left side via a proportion instead of a fixed amount
+    yCenter = int((height - groundHeight) / 4) # indent from the top by a proportion instead of a fixed amount
     # radius of sun is a percentage of the height (because height is usually smaller than width on my laptop computer
-    sunRadius = int(height * 0.12 * 10 / 10)
+    sunRadius = int(height * 0.08 * 10 / 10)
     sunColor  = (0, 255, 255) # BGR not RGB
     sunThickness = -1
     cv.circle(img, (xCenter, yCenter), sunRadius, sunColor, sunThickness)
+    # sun halo
+    sunHaloRadius = int(sunRadius * 1.10) # increase radius by 10 percent
+    sunHaloColor = (220, 255, 255)
+    sunHaloThickness = 10
+    cv.circle(img, (xCenter, yCenter), sunHaloRadius, sunHaloColor, sunHaloThickness)
 
     # tree trunk
     trunkX1, y1 = int(width / 2), height - groundHeight # (600, 500) in video
@@ -65,8 +70,12 @@ if __name__ == '__main__':
     trunkHeight = int(height * 0.35)
     y2 = y1 - trunkHeight
     trunkColor = (30, 65, 155) # BGR not RGB
+    # trunk line thickness is proportional to screen width
     trunkLineThickness = int(width * 0.05 * 10 / 10)
     cv.line(img, (trunkX1, y1), (x2, y2), trunkColor, trunkLineThickness)
+
+    # leafs
+
 
     cv.imshow("tree", img)
 
