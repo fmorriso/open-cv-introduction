@@ -66,7 +66,7 @@ if __name__ == '__main__':
     cv.circle(img, (xCenter, yCenter), sunHaloRadius, sunHaloColor, sunHaloThickness)
 
     # tree trunk
-    trunk1_X1, trunk1_Y1 = int(width * 2 / 3), height - groundHeight  # (600, 500) in video
+    trunk1_X1, trunk1_Y1 = int(width * 60 / 100), height - groundHeight  # (600, 500) in video
     trunk1_X2 = trunk1_X1
     trunk1_height = int(height * 0.30)
     trunk1_Y2 = trunk1_Y1 - trunk1_height
@@ -89,11 +89,28 @@ if __name__ == '__main__':
     leaves1_TopY = int(trunk1_Y2 * 0.30)
     leaves1_Top = [leaves1_TopX, leaves1_TopY]
 
-    triangle = np.array([[leaves1_Xleft, leaves1_Ybase], [leaves1_Xright, leaves1_Ybase], [leaves1_TopX, leaves1_TopY]], dtype=np.int32)
-    cv.fillPoly(img, [triangle], groundColor)
+    tree1_triangle = np.array([[leaves1_Xleft, leaves1_Ybase], [leaves1_Xright, leaves1_Ybase], [leaves1_TopX, leaves1_TopY]], dtype=np.int32)
+    cv.fillPoly(img, [tree1_triangle], groundColor)
 
     # tree #2 over to the right, shorter and thinner than tree #1
 
+    trunk2_X1, trunk2_Y1 = int(width * 3 / 4), height - groundHeight  # (600, 500) in video
+    trunk2_X2 = trunk2_X1
+    trunk2_height = int(height * 0.25)
+    trunk2_Y2 = trunk2_Y1 - trunk2_height
+    trunk2_color = (30, 65, 155)  # BGR not RGB
+    # trunk line thickness is proportional to screen width
+    trunk2_lineThickness = int(width * 0.03)
+    cv.line(img, (trunk2_X1, trunk2_Y1), (trunk2_X2, trunk2_Y2), trunk2_color, trunk2_lineThickness)
+
+    #### tree #2 leaves
+
+    leaves2_Xleft = int(trunk1_X1 * 0.90)
+    leaves2_Ybase = int(trunk1_Y1 - (height * 0.15))
+    leaves2_baseLeft = [leaves2_Xleft, leaves2_Ybase]  # left base
+
+    leaves2_Xright = int(trunk1_X1 * 1.15)
+    leaves2_baseRight = [leaves1_Xright, leaves1_Ybase]
     # add caption text
     captionText = "I love Python"
     captionFont = cv.FONT_HERSHEY_SCRIPT_SIMPLEX
