@@ -76,7 +76,7 @@ if __name__ == '__main__':
     cv.line(img, (trunkX1, trunkY1), (trunkX2, trunkY2), trunkColor, trunkLineThickness)
     # cv.line(img, (600, 500), (600, 420), (30,65,155), 25) # from video
 
-    # leafs
+    # leaves on the tree as a simple triangle
     # triangle = np.array([ [500,440], [700,440], [600,75]  ]) # left base, right-base, top from video
     leafXleft = int(trunkX1 * 0.85)
     leafYbase = int(trunkY1 - (height * 0.10))
@@ -91,6 +91,18 @@ if __name__ == '__main__':
 
     triangle = np.array([[leafXleft, leafYbase], [leafXright, leafYbase], [leafTopX, leafTopY]], dtype=np.int32)
     cv.fillPoly(img, [triangle], groundColor)
+
+    # add caption text
+    captionText = "I love Python"
+    captionFont = cv.FONT_HERSHEY_SCRIPT_SIMPLEX
+    captionX = int(width * 0.20)
+    captionY = int(height * 0.84)
+    # make font scale somewhat proportional with a little extra for good measure
+    fontScale =  max(height, width) / min(height, width) * 1.5
+    print(f'fontScale = {fontScale:.2f}')
+    textColor = (255, 255, 255) # BGR not RGB
+    textThickness = int(height * 0.0025)
+    cv.putText(img, captionText, (captionX, captionY), captionFont, fontScale, textColor, textThickness)
 
     cv.imshow("tree", img)
 
