@@ -65,16 +65,18 @@ if __name__ == '__main__':
     cv.circle(img, (xCenter, yCenter), sunHaloRadius, sunHaloColor, sunHaloThickness)
 
     # tree trunk
-    trunkX1, y1 = int(width / 2), height - groundHeight # (600, 500) in video
-    x2 = trunkX1
-    trunkHeight = int(height * 0.35)
-    y2 = y1 - trunkHeight
+    trunkX1, trunkY1 = int(width / 2), height - groundHeight # (600, 500) in video
+    trunkX2 = trunkX1
+    trunkHeight = int(height * 0.30)
+    trunkY2 = trunkY1 - trunkHeight
     trunkColor = (30, 65, 155) # BGR not RGB
     # trunk line thickness is proportional to screen width
-    trunkLineThickness = int(width * 0.05 * 10 / 10)
-    cv.line(img, (trunkX1, y1), (x2, y2), trunkColor, trunkLineThickness)
+    trunkLineThickness = int(width * 0.03)
+    cv.line(img, (trunkX1, trunkY1), (trunkX2, trunkY2), trunkColor, trunkLineThickness)
 
     # leafs
+    # triangle = np.array([ [500,440], [700,440], [600,75]  ]) # left base, right-base, top
+    baseLeft = []
 
 
     cv.imshow("tree", img)
