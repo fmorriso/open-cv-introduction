@@ -30,23 +30,23 @@ if __name__ == '__main__':
     # scale the size of the background based on device size
     width, height = scaleBackground(0.80)
     print(f'scaled: width={width}, height={height}')
+    # use a percentage of total image height for the ground height
+    ground_level: int = int(height * 0.15 * 10 / 10)
 
     # background
     img = np.zeros((height, width, 3), dtype=np.uint8)
 
     # sky
     x1, y1 = 0, 0
-    x2, y2 = 0, 0
-    skyColor = (255, 255, 85)  # BGR, not RGB
-    skyLineThickness = -1  # fill without a border
-    cv.rectangle(img, (x1, y1), (x2, y2), skyColor, skyLineThickness)
+    x2, y2 = width, height - ground_level
+    sky_color = (255, 255, 85)  # BGR, not RGB
+    sky_line_thickness = -1  # fill without a border
+    cv.rectangle(img, (x1, y1), (x2, y2), sky_color, sky_line_thickness)
 
     # ground
-    # use a percentage of total image height for the ground height
-    ground_height: int = int(height * 0.15 * 10 / 10)
-    x2, y2 = width, height - ground_height
-    print(f'ground height={ground_height}, y2={y2}')
-    x1, y1 = 0, height - ground_height
+    x2, y2 = width, height - ground_level
+    print(f'ground height={ground_level}, y2={y2}')
+    x1, y1 = 0, height - ground_level
     x2, y2 = width, height
     groundColor = (75, 180, 70)
     groundThickness = -1
@@ -54,7 +54,7 @@ if __name__ == '__main__':
 
     # sun
     xCenter = int(width / 8)  # indent from left side via a proportion instead of a fixed amount
-    yCenter = int((height - ground_height) / 4)  # indent from the top by a proportion instead of a fixed amount
+    yCenter = int((height - ground_level) / 4)  # indent from the top by a proportion instead of a fixed amount
     # radius of sun is a percentage of the height (because height is usually smaller than width on my laptop computer
     sunRadius = int(height * 0.08 * 10 / 10)
     sunColor = (0, 255, 255)  # BGR not RGB
@@ -67,7 +67,7 @@ if __name__ == '__main__':
     cv.circle(img, (xCenter, yCenter), sunHaloRadius, sunHaloColor, sunHaloThickness)
 
     # tree trunk
-    trunk1_X1, trunk1_Y1 = int(width * 60 / 100), height - ground_height  # (600, 500) in video
+    trunk1_X1, trunk1_Y1 = int(width * 60 / 100), height - ground_level  # (600, 500) in video
     trunk1_X2 = trunk1_X1
     trunk1_height = int(height * 0.30)
     trunk1_Y2 = trunk1_Y1 - trunk1_height
@@ -96,7 +96,7 @@ if __name__ == '__main__':
     # tree #2 over to the right, shorter and thinner than tree #1
 
     trunk2_X1 = int(width * 3 / 4)  # (600, 500) in video
-    trunk2_Y1 = int(height - ground_height) # this should be on the ground instead of up in the air
+    trunk2_Y1 = int(height - ground_level) # this should be on the ground instead of up in the air
     print(f'trunk1_Y1 = {trunk1_Y1}, trunk2_Y1 = {trunk2_Y1}')
     trunk2_X2 = trunk2_X1
     trunk2_height = int(height * 0.20)
