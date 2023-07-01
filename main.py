@@ -48,9 +48,9 @@ if __name__ == '__main__':
     print(f'ground height={ground_level}, y2={y2}')
     x1, y1 = 0, height - ground_level
     x2, y2 = width, height
-    groundColor = (75, 180, 70)
-    groundThickness = -1
-    cv.rectangle(img, (x1, y1), (x2, y2), groundColor, groundThickness)
+    ground_color = (75, 180, 70)
+    ground_thickness = -1
+    cv.rectangle(img, (x1, y1), (x2, y2), ground_color, ground_thickness)
 
     # sun
     xCenter = int(width / 8)  # indent from left side via a proportion instead of a fixed amount
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     leaves1_Top = [leaves1_TopX, leaves1_TopY]
 
     tree1_triangle = np.array([[leaves1_Xleft, leaves1_Ybase], [leaves1_Xright, leaves1_Ybase], [leaves1_TopX, leaves1_TopY]], dtype=np.int32)
-    cv.fillPoly(img, [tree1_triangle], groundColor)
+    cv.fillPoly(img, [tree1_triangle], ground_color)
 
     # tree #2 over to the right, shorter and thinner than tree #1
 
